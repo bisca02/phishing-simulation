@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Login - UI Mockup</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0f1219;
+    color: #ffffff;
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .login-container {
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  /* LOGO HEADER UPDATED */
+  .logo {
+    display: flex;
+    align-items: top;
+    gap: 12px;
+    font-size: 64px; /* Font mai mare pentru titlul Battle.net */
+    font-weight: 1000;
+    letter-spacing: 1.5px;
+    margin-bottom: 64px; /* Spatiu mai mare fata de sectiunea de jos */
+  }
+  .logo img { width: 75px; height: 75px; }
+
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #ffffff;
+  }
+
+  .account-line {
+    font-size: 14px;
+    color: #8f96a3;
+    margin-bottom: 24px;
+  }
+  .account-line a {
+    color: #0074e4;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .account-line a:hover { text-decoration: underline; }
+
+  /* ALERTA DE EROARE GLOBALĂ */
+  .global-error-box {
+    width: 100%;
+    background: #191c24;
+    border: 1px solid #3d3b30;
+    border-radius: 4px;
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: #d0d4e4;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .global-error-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #e2b13c;
+    font-weight: 600;
+  }
+  .global-error-box a {
+    color: #0074e4;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* FORM FIELDS */
+  .form-group {
+    width: 100%;
+    margin-bottom: 6px;
+  }
+
+  .input-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .input-wrapper input {
+    width: 100%;
+    background: #151821;
+    border: 1px solid #2b303d;
+    border-radius: 4px;
+    padding: 12px 40px 12px 12px;
+    color: #ffffff;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .input-wrapper.error input {
+    border-color: #e2b13c;
+  }
+
+  .eye-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #0074e4;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  .field-error {
+    color: #e2b13c;
+    font-size: 12.5px;
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 600;
+  }
+
+  .forgot-link {
+    width: 100%;
+    text-align: left;
+    margin: 12px 0 20px;
+  }
+  .forgot-link a {
+    color: #0074e4;
+    font-size: 13.5px;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  /* BUTTONS */
+  .btn-primary {
+    width: 100%;
+    background: #0074e4;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: #005bb5; }
+
+  .divider {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: 24px 0;
+    color: #61687d;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #232733;
+  }
+  .divider span { padding: 0 12px; }
+
+  .btn-secondary {
+    width: 100%;
+    background: #222733;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 11px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: background 0.2s;
+  }
+  .btn-secondary:hover { background: #2c3242; }
+
+  /* AUTHENTICATOR CODE INPUTS (8 BOXES) */
+  .auth-boxes-container {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin: 16px 0 6px;
+    width: 100%;
+  }
+
+  .auth-box {
+    width: 40px;
+    height: 48px;
+    background: #151821;
+    border: 1px solid #2b303d;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    outline: none;
+  }
+  .auth-box:focus {
+    border-color: #0074e4;
+  }
+
+  .auth-label {
+    color: #8f96a3;
+    font-size: 12.5px;
+    margin-bottom: 24px;
+  }
+
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="login-container">
+  <!-- LOGO HEADER -->
+  <div class="logo">
+    <img src="https://cdn2.steamgriddb.com/icon/937ea3f7714dc0d01475da7bff33b596/32/256x256.png" alt="Logo">
+    <span>BATTLENET</span>
+  </div>
+
+  <h1>Welcome back</h1>
+  <div class="account-line">
+    noobert.bugged@gmail.com <a href="#">Switch account</a>
+  </div>
+
+  <!-- PASUL 1: AUTENTIFICARE PAROLĂ -->
+  <div id="step-password" style="width: 100%;">
+    
+    <div id="error-box" class="global-error-box hidden">
+      <div class="global-error-header">
+        ⚠ We couldn't verify your account with that information.
+      </div>
+      <div>
+        <a href="#">Get Help: BLZBNTTA500000002 ↗</a>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div id="input-wrapper" class="input-wrapper">
+        <input type="password" id="passwordInput" placeholder="Password">
+        <span class="eye-icon">👁</span>
+      </div>
+      <div id="field-error" class="field-error hidden">
+        ⚠ Please enter your password.
+      </div>
+    </div>
+
+    <div class="forgot-link">
+      <a href="#">Forgot password?</a>
+    </div>
+
+    <button class="btn-primary" onclick="handlePasswordSubmit()">Log in</button>
+
+    <div class="divider"><span>OR</span></div>
+
+    <button class="btn-secondary">Use passkey</button>
+    <button class="btn-secondary">Email a code</button>
+  </div>
+
+  <!-- PASUL 2: COD AUTENTIFICATOR (8 CĂSUȚE) -->
+  <div id="step-authenticator" class="hidden" style="width: 100%; text-align: center;">
+    
+    <div class="auth-boxes-container">
+      <input type="text" class="auth-box" maxlength="1">
+      <input type="text" class="auth-box" maxlength="1">
+      <input type="text" class="auth-box" maxlength="1">
+      <input type="text" class="auth-box" maxlength="1">
+      <input type="text" class="auth-box" maxlength="1">
+      <input type="text" class="auth-box" maxlength="1">
+      <input type="text" class="auth-box" maxlength="1">
+      <input type="text" class="auth-box" maxlength="1">
+    </div>
+    <div class="auth-label">Authenticator</div>
+
+    <button class="btn-primary" onclick="handleAuthSubmit()">Log in</button>
+
+    <div class="divider"><span>OR</span></div>
+
+    <button class="btn-secondary" onclick="showPasswordStep()">Use password</button>
+    <button class="btn-secondary">Use passkey</button>
+  </div>
+
+</div>
+
+<script>
+  function handlePasswordSubmit() {
+    const pwd = document.getElementById('passwordInput').value;
+    const errorBox = document.getElementById('error-box');
+    const fieldError = document.getElementById('field-error');
+    const inputWrapper = document.getElementById('input-wrapper');
+
+    if (pwd.length < 8 || pwd.length > 16) {
+      errorBox.classList.remove('hidden');
+      fieldError.classList.remove('hidden');
+      inputWrapper.classList.add('error');
+    } else {
+      errorBox.classList.add('hidden');
+      fieldError.classList.add('hidden');
+      inputWrapper.classList.remove('error');
+      
+      document.getElementById('step-password').classList.add('hidden');
+      document.getElementById('step-authenticator').classList.remove('hidden');
+    }
+  }
+
+  function showPasswordStep() {
+    document.getElementById('step-authenticator').classList.add('hidden');
+    document.getElementById('step-password').classList.remove('hidden');
+  }
+
+  function handleAuthSubmit() {
+    alert("Demo interfață finalizat.");
+  }
+</script>
+
+</body>
+</html>

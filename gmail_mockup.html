@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<title>Inbox (7.664) - noobert.bugged@gmail.com - Gmail</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Google Sans', Roboto, Arial, sans-serif;
+    background: #ffffff;
+    color: #202124;
+    font-size: 14px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* --- HEADER --- */
+  header {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 16px;
+    background: #ffffff;
+    border-bottom: 1px solid #f1f3f4;
+  }
+  .menu-btn {
+    width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: #5f6368;
+  }
+  .logo-container {
+    display: flex; align-items: center; gap: 8px; width: 150px; cursor: pointer;
+  }
+  .logo-container span { font-size: 22px; color: #5f6368; font-weight: 400; font-family: 'Product Sans', Arial, sans-serif; }
+
+  .search-bar {
+    flex: 1; max-width: 720px; height: 48px; background: #edf2fc;
+    border-radius: 8px; display: flex; align-items: center; padding: 0 16px; gap: 12px;
+  }
+  .search-bar input {
+    border: none; background: transparent; outline: none; flex: 1; font-size: 16px; color: #202124;
+  }
+  .search-bar input::placeholder { color: #5f6368; }
+
+  .header-actions { margin-left: auto; display: flex; align-items: center; gap: 16px; }
+  .upgrade-btn {
+    background: transparent; color: #1a73e8; border: none; padding: 6px 12px;
+    font-weight: 500; font-size: 14px; cursor: pointer;
+  }
+  .icon-btn {
+    width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+    color: #5f6368; cursor: pointer;
+  }
+  .avatar {
+    width: 32px; height: 32px; border-radius: 50%; background: #d81b60; color: white;
+    display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px;
+  }
+
+  /* --- MAIN LAYOUT --- */
+  .container { display: flex; flex: 1; overflow: hidden; }
+
+  /* SIDEBAR */
+  nav { width: 230px; padding: 12px 12px 12px 0; display: flex; flex-direction: column; gap: 2px; }
+  
+  .compose-container { padding: 0 0 12px 12px; }
+  .compose-btn {
+    background: #c2e7ff; color: #001d35; border-radius: 16px; padding: 16px 24px;
+    display: inline-flex; align-items: center; gap: 12px; font-weight: 500; font-size: 14px;
+    cursor: pointer; width: fit-content;
+  }
+
+  .nav-item {
+    display: flex; align-items: center; justify-content: space-between; height: 32px;
+    padding: 0 16px 0 24px; border-radius: 0 16px 16px 0; color: #202124; font-size: 14px; cursor: pointer;
+  }
+  .nav-item.active { background: #d3e3fd; font-weight: 700; }
+  .nav-item-left { display: flex; align-items: center; gap: 18px; }
+  .nav-item-left svg { flex-shrink: 0; }
+  .nav-count { font-weight: 700; color: #202124; font-size: 13px; }
+
+  .nav-more { padding: 6px 24px; color: #5f6368; display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; margin-top: 4px; }
+  .labels-header { padding: 16px 24px 8px; color: #202124; font-size: 14px; cursor: pointer; }
+
+  /* CONTENT AREA */
+  main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+  /* PROMO BANNER */
+  .promo-banner {
+    padding: 12px 24px; border-bottom: 1px solid #f1f3f4;
+    display: flex; align-items: center; gap: 16px; font-size: 13px; background: #fff;
+  }
+  .promo-icon {
+    width: 36px; height: 36px; border-radius: 50%; background: #1a73e8; color: white;
+    display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; flex-shrink: 0;
+  }
+  .promo-text b { display: block; font-size: 14px; color: #202124; margin-bottom: 2px; }
+  .promo-text span { color: #5f6368; }
+  .promo-actions { margin-left: auto; display: flex; gap: 20px; color: #1a73e8; font-weight: 500; cursor: pointer; font-size: 14px; }
+
+  /* ACTION TOOLBAR */
+  .main-toolbar {
+    height: 48px; border-bottom: 1px solid #f1f3f4; display: flex; align-items: center;
+    padding: 0 16px; justify-content: space-between; color: #5f6368;
+  }
+  .toolbar-left { display: flex; align-items: center; gap: 16px; }
+  .toolbar-right { display: flex; align-items: center; gap: 12px; font-size: 12px; color: #5f6368; }
+
+  /* TABS */
+  .tabs { display: flex; border-bottom: 1px solid #f1f3f4; }
+  .tab {
+    width: 240px; height: 48px; display: flex; align-items: center; gap: 12px; padding: 0 16px;
+    color: #5f6368; font-weight: 500; cursor: pointer; border-bottom: 3px solid transparent;
+  }
+  .tab.active { color: #0b57d0; border-bottom-color: #0b57d0; font-weight: 700; }
+  .tab-badge { background: #137333; color: white; font-size: 11px; padding: 1px 6px; border-radius: 8px; font-weight: bold; }
+
+  /* EMAIL LIST */
+  .email-list { flex: 1; overflow-y: auto; }
+  .email-row {
+    display: flex; align-items: center; height: 40px; padding: 0 16px; border-bottom: 1px solid #f2f6fc;
+    gap: 12px; cursor: pointer; font-size: 14px; color: #202124;
+  }
+  .email-row:hover { background: #f5f5f5; }
+  .email-row.unread { font-weight: 700; background: #ffffff; }
+  .email-row.read { background: #ffffff; color: #5f6368; font-weight: 400; }
+  
+  .email-row.phishing-target { background: #fff8e1; border-left: 4px solid #d93025; }
+  .email-row.phishing-target:hover { background: #ffecb3; }
+
+  .checkbox, .star { color: #c4c7c5; cursor: pointer; width: 18px; text-align: center; }
+  .sender { width: 160px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-shrink: 0; }
+  .subject-wrap { flex: 1; display: flex; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; gap: 6px; }
+  .snippet { color: #5f6368; font-weight: 400; overflow: hidden; text-overflow: ellipsis; }
+  .date { width: 75px; text-align: right; font-size: 12px; color: #5f6368; flex-shrink: 0; font-weight: 500; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="menu-btn">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="#5f6368"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+  </div>
+  <div class="logo-container">
+    <svg width="36" height="30" viewBox="0 0 48 48">
+      <path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/>
+      <path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/>
+      <path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24s.85 6.91 2.34 9.88l7.35-5.7z"/>
+      <path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/>
+    </svg>
+    <span>Gmail</span>
+  </div>
+
+  <div class="search-bar">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="#5f6368"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+    <input type="text" placeholder="Search mail">
+  </div>
+
+  <div class="header-actions">
+    <div class="icon-btn">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 2-3 4"/><line x1="12" y1="17" x2="12" y2="17"/></svg>
+    </div>
+    <div class="icon-btn">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09c0 .68.39 1.29 1 1.51.62.24 1.34.11 1.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06c-.44.48-.57 1.2-.33 1.82.22.61.83 1 1.51 1H21a2 2 0 010 4h-.09c-.68 0-1.29.39-1.51 1z"/></svg>
+    </div>
+    <button class="upgrade-btn">Upgrade</button>
+    <div class="avatar">N</div>
+  </div>
+</header>
+
+<div class="container">
+  <nav>
+    <div class="compose-container">
+      <div class="compose-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#001d35" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        Compose
+      </div>
+    </div>
+
+    <!-- Inbox -->
+    <div class="nav-item active">
+      <div class="nav-item-left">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#202124" stroke-width="2"><path d="M22 12h-6l-2 3h-4l-2-3H2v7c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-7z"/><path d="M5.45 5.11L2 12v0h20v0l-3.45-6.89A2 2 0 0016.76 4H7.24a2 2 0 00-1.79 1.11z"/></svg>
+        Inbox
+      </div>
+      <span class="nav-count">7,664</span>
+    </div>
+
+    <!-- Starred -->
+    <div class="nav-item">
+      <div class="nav-item-left">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Starred
+      </div>
+    </div>
+
+    <!-- Snoozed -->
+    <div class="nav-item">
+      <div class="nav-item-left">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Snoozed
+      </div>
+    </div>
+
+    <!-- Sent -->
+    <div class="nav-item">
+      <div class="nav-item-left">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2"><path d="M22 12h-6l-2-3h-4l-2 3H2v7c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-7z"/><line x1="12" y1="11" x2="12" y2="3"/><polyline points="8 7 12 3 16 7"/></svg>
+        Sent
+      </div>
+    </div>
+
+    <!-- Drafts -->
+    <div class="nav-item">
+      <div class="nav-item-left">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Drafts
+      </div>
+      <span class="nav-count" style="font-weight:400; color:#5f6368;">4</span>
+    </div>
+
+    <!-- Purchases -->
+    <div class="nav-item">
+      <div class="nav-item-left">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1z"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
+        Purchases
+      </div>
+      <span class="nav-count" style="font-weight:400; color:#5f6368;">30</span>
+    </div>
+
+    <div class="nav-more">▾ More</div>
+    <div class="labels-header">Labels +</div>
+  </nav>
+
+  <main>
+    <div class="promo-banner">
+      <div class="promo-icon">G</div>
+      <div class="promo-text">
+        <b>Get additional protection against phishing</b>
+        <span>Turn on Enhanced Safe Browsing to get additional protection against dangerous emails</span>
+      </div>
+      <div class="promo-actions">
+        <span>Continue</span>
+        <span>No thanks</span>
+      </div>
+    </div>
+
+    <div class="main-toolbar">
+      <div class="toolbar-left">
+        <span class="checkbox">☐</span>
+        <span style="font-size: 10px;">▾</span>
+      </div>
+      <div class="toolbar-right">
+        <span>1-50 of 8,223</span>
+        <span>‹</span><span>›</span>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <div class="tab active">📥 Primary</div>
+      <div class="tab">🏷️ Promotions <span class="tab-badge">38 new</span></div>
+      <div class="tab">👥 Social</div>
+    </div>
+
+    <div class="email-list">
+
+      <!-- Emailul de Phishing Tinta (Modificat pentru Suspendare) -->
+      <div class="email-row unread phishing-target" onclick="window.location.href='battlenet_email_open.html'">
+        <span class="checkbox">☐</span>
+        <span class="star">☆</span>
+        <span class="sender">Battle.net</span>
+        <div class="subject-wrap">
+          <span>Battle.net Account Suspension Notice</span>
+          <span class="snippet">- Hello bobertVoDa#2868! Your Battle.net account has been temporarily suspended due to unauthorized login attempts. Please verify your credentials immediately to restore access...</span>
+        </div>
+        <span class="date">10:29 PM</span>
+      </div>
+
+      <!-- Rockstar Propaganda -->
+      <div class="email-row read">
+        <span class="checkbox">☐</span><span class="star">☆</span>
+        <span class="sender">Rockstar Propaganda</span>
+        <div class="subject-wrap"><span>Grand Theft Auto VI: An Extended Look — Now Playing</span><span class="snippet">- See the next evolution in the Grand Theft Auto series.</span></div>
+        <span class="date">Aug 30</span>
+      </div>
+
+      <!-- Steam (Manor Lords) -->
+      <div class="email-row read">
+        <span class="checkbox">☐</span><span class="star">☆</span>
+        <span class="sender">Steam</span>
+        <div class="subject-wrap"><span>Manor Lords and 2 other items from your Steam wishlist are now on sale!</span><span class="snippet">- Steam SAVE NOW ON 3 GAMES YOU'VE WISHED FOR! Manor Lords -35% $19.99 $12.99 USD WEEKEND DEAL! Offer...</span></div>
+        <span class="date">Aug 30</span>
+      </div>
+
+      <!-- Paradox Interactive -->
+      <div class="email-row read">
+        <span class="checkbox">☐</span><span class="star">☆</span>
+        <span class="sender">Paradox Interactive</span>
+        <div class="subject-wrap"><span>Create a city like no other in LEGO® Skylines</span><span class="snippet">- Wishlist Now</span></div>
+        <span class="date">Aug 29</span>
+      </div>
+
+      <!-- SHEIN (Takes the Lead) -->
+      <div class="email-row read">
+        <span class="checkbox">☐</span><span class="star">☆</span>
+        <span class="sender">SHEIN</span>
+        <div class="subject-wrap"><span>Start from 5,99 € | SHEINX Takes the Lead</span><span class="snippet">- A stronger look starts here.</span></div>
+        <span class="date">Aug 29</span>
+      </div>
+
+      <!-- McDonald's Italia -->
+      <div class="email-row read">
+        <span class="checkbox">☐</span><span class="star">☆</span>
+        <span class="sender">McDonald's Italia</span>
+        <div class="subject-wrap"><span>La dolce vita è pronta a partire!</span><span class="snippet">- Roberto, iamo pronti a godercela? Super Happy Meal®: un Happy Meal® e uno dei 3 nuovi Kit Scuola Ciao Roberto, è il momento di assaporare la dolce vita! ☀️ ...</span></div>
+        <span class="date">Aug 29</span>
+      </div>
+
+      <!-- SHEIN 1 -->
+      <div class="email-row read">
+        <span class="checkbox">☐</span><span class="star">☆</span>
+        <span class="sender">SHEIN</span>
+        <div class="subject-wrap"><span>All under 19,99 € | New Looks in Your Perfect Fit</span><span class="snippet">- Everyday style made for your wardrobe.</span></div>
+        <span class="date">Aug 29</span>
+      </div>
+
+      <!-- Blizzard Entertainment -->
+      <div class="email-row read">
+        <span class="checkbox">☐</span><span class="star">☆</span>
+        <span class="sender">Blizzard Entertainm.</span>
+        <div class="subject-wrap"><span>The Black Temple Content Update is Now Live bobertVoDa!</span><span class="snippet">- Confront the Betrayer and defend Mount Hyjal in Burning Crusade Classic Anniversary Edition. YOU ARE NOT PREPARED YOU ARE...</span></div>
+        <span class="date">Aug 28</span>
+      </div>
+
+      <!-- Glovo -->
+      <div class="email-row read">
+        <span class="checkbox">☐</span><span class="star">☆</span>
+        <span class="sender">Glovo</span>
+        <div class="subject-wrap"><span>Restaurants for second helpings 🥺</span><span class="snippet">- It's never too late to enjoy them all over again</span></div>
+        <span class="date">Aug 28</span>
+      </div>
+
+      <!-- Crusader Kings III -->
+      <div class="email-row read">
+        <span class="checkbox">☐</span><span class="star">☆</span>
+        <span class="sender">Crusader Kings III</span>
+        <div class="subject-wrap"><span>Latest Highlights: News for Console and PC Edition</span><span class="snippet">- Open for CK3 news and updates...</span></div>
+        <span class="date">Aug 28</span>
+      </div>
+
+      <!-- SHEIN 2 -->
+      <div class="email-row read">
+        <span class="checkbox">☐</span><span class="star">☆</span>
+        <span class="sender">SHEIN</span>
+        <div class="subject-wrap"><span>What will you find at 70% off? 👀</span><span class="snippet">- Uncover massive markdowns on your favorite items. Dive in now.</span></div>
+        <span class="date">Aug 28</span>
+      </div>
+
+      <!-- Steam Sale 1 -->
+      <div class="email-row read">
+        <span class="checkbox">☐</span><span class="star">☆</span>
+        <span class="sender">Steam</span>
+        <div class="subject-wrap"><span>Solasta II from your Steam wishlist is now on sale!</span><span class="snippet">- Steam 1 GAME YOU'VE WISHED FOR IS ON SALE! Solasta II -20% $19.99 $15.99 USD SPECIAL PROMOTION! Offer ends 22 Sep 5:00p...</span></div>
+        <span class="date">Aug 27</span>
+      </div>
+
+      <!-- Twitch -->
+      <div class="email-row read">
+        <span class="checkbox">☐</span><span class="star">☆</span>
+        <span class="sender">Twitch</span>
+        <div class="subject-wrap"><span>ZlewikkTV è live: 30-players EU5 MP as Muscovy</span><span class="snippet">- ZlewikkTV è live! Twitch Ciao, bobertuu! ZlewikkTV è live! 30-players EU5 MP as Muscovy !mp !mod !maps Sta meguendo lo streaming...</span></div>
+        <span class="date">Aug 26</span>
+      </div>
+
+      <!-- Steam Sale 2 -->
+      <div class="email-row read">
+        <span class="checkbox">☐</span><span class="star">☆</span>
+        <span class="sender">Steam</span>
+        <div class="subject-wrap"><span>PRAGMATA from your Steam wishlist is now on sale!</span><span class="snippet">- Steam 1 GAME YOU'VE WISHED FOR IS ON SALE! PRAGMATA -20% $44.99 $35.99 USD SPECIAL PROMOTION! Offer ends 21 Sep 8:...</span></div>
+        <span class="date">Aug 25</span>
+      </div>
+
+      <!-- Overleaf -->
+      <div class="email-row read">
+        <span class="checkbox">☐</span><span class="star">☆</span>
+        <span class="sender">Overleaf</span>
+        <div class="subject-wrap"><span>Welcome to Overleaf</span><span class="snippet">- Overleaf Welcome to Overleaf Hi, Thanks for signing up to Overleaf! If you ever get lost, you can log in again with the email address...</span></div>
+        <span class="date">Aug 24</span>
+      </div>
+
+      <!-- Spotify -->
+      <div class="email-row read">
+        <span class="checkbox">☐</span><span class="star">☆</span>
+        <span class="sender">Spotify</span>
+        <div class="subject-wrap"><span>Your weekly Release Radar is here</span><span class="snippet">- New music from artists you follow including Sabaton, Powerwolf and more.</span></div>
+        <span class="date">Aug 22</span>
+      </div>
+
+      <!-- Discord -->
+      <div class="email-row read">
+        <span class="checkbox">☐</span><span class="star">☆</span>
+        <span class="sender">Discord</span>
+        <div class="subject-wrap"><span>New login detected from Bucharest, Romania</span><span class="snippet">- Hey bobertVoDa, We noticed a new login to your Discord account from Chrome on Windows.</span></div>
+        <span class="date">Aug 20</span>
+      </div>
+
+      <!-- Epic Games -->
+      <div class="email-row read">
+        <span class="checkbox">☐</span><span class="star">☆</span>
+        <span class="sender">Epic Games</span>
+        <div class="subject-wrap"><span>Your Free Games this week: Death Stranding</span><span class="snippet">- Claim your free copy before August 25th at 11:00 AM EST.</span></div>
+        <span class="date">Aug 18</span>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

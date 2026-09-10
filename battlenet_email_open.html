@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<title>Battle.net Account Suspension Notice - noobert.bugged@gmail.com - Gmail</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Google Sans', Roboto, Arial, sans-serif;
+    background: #ffffff;
+    color: #202124;
+    font-size: 14px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* --- HEADER --- */
+  header {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 16px;
+    background: #ffffff;
+    border-bottom: 1px solid #f1f3f4;
+  }
+  .menu-btn {
+    width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: #5f6368;
+  }
+  .logo-container {
+    display: flex; align-items: center; gap: 8px; width: 150px; cursor: pointer;
+  }
+  .logo-container span { font-size: 22px; color: #5f6368; font-weight: 400; font-family: 'Product Sans', Arial, sans-serif; }
+
+  .search-bar {
+    flex: 1; max-width: 720px; height: 48px; background: #edf2fc;
+    border-radius: 8px; display: flex; align-items: center; padding: 0 16px; gap: 12px;
+  }
+  .search-bar input {
+    border: none; background: transparent; outline: none; flex: 1; font-size: 16px; color: #202124;
+  }
+  .search-bar input::placeholder { color: #5f6368; }
+
+  .header-actions { margin-left: auto; display: flex; align-items: center; gap: 16px; }
+  .upgrade-btn {
+    background: #d3e3fd; color: #041e49; border: none; padding: 8px 16px;
+    border-radius: 20px; font-weight: 500; font-size: 14px; cursor: pointer;
+  }
+  .icon-btn {
+    width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+    color: #5f6368; cursor: pointer;
+  }
+  .avatar {
+    width: 32px; height: 32px; border-radius: 50%; background: #d81b60; color: white;
+    display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px;
+  }
+
+  /* --- MAIN LAYOUT --- */
+  .container { display: flex; flex: 1; overflow: hidden; }
+
+  /* SIDEBAR */
+  nav { width: 230px; padding: 12px 12px 12px 0; display: flex; flex-direction: column; gap: 2px; flex-shrink: 0; }
+  
+  .compose-container { padding: 0 0 12px 12px; }
+  .compose-btn {
+    background: #c2e7ff; color: #001d35; border-radius: 16px; padding: 16px 24px;
+    display: inline-flex; align-items: center; gap: 12px; font-weight: 500; font-size: 14px;
+    cursor: pointer; width: fit-content;
+  }
+
+  .nav-item {
+    display: flex; align-items: center; justify-content: space-between; height: 32px;
+    padding: 0 16px 0 24px; border-radius: 0 16px 16px 0; color: #202124; font-size: 14px; cursor: pointer;
+  }
+  .nav-item.active { background: #d3e3fd; font-weight: 700; }
+  .nav-item-left { display: flex; align-items: center; gap: 18px; }
+  .nav-item-left svg { flex-shrink: 0; }
+  .nav-count { font-weight: 700; color: #202124; font-size: 13px; }
+
+  .nav-more { padding: 6px 24px; color: #5f6368; display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; margin-top: 4px; }
+  .labels-header { padding: 16px 24px 8px; color: #202124; font-size: 14px; cursor: pointer; }
+
+  /* CONTENT AREA */
+  main { flex: 1; display: flex; flex-direction: column; overflow-y: auto; background: #ffffff; }
+
+  /* TOOLBAR */
+  .email-toolbar {
+    height: 48px; border-bottom: 1px solid #f1f3f4; display: flex; align-items: center;
+    padding: 0 16px; justify-content: space-between; color: #5f6368; flex-shrink: 0;
+  }
+  .toolbar-group { display: flex; align-items: center; gap: 16px; }
+  .toolbar-icon { cursor: pointer; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; }
+  .toolbar-icon:hover { background: #f1f3f4; }
+
+  /* EMAIL CONTENT WRAPPER */
+  .email-view { padding: 16px 0 0 0; width: 100%; display: flex; flex-direction: column; flex: 1; }
+
+  .subject-line {
+    font-size: 20px; font-weight: 400; color: #202124; margin-bottom: 16px;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 32px;
+  }
+  .subject-title { display: flex; align-items: center; gap: 12px; }
+  .inbox-tag {
+    background: #dddddd; color: #444444; font-size: 12px; padding: 2px 6px;
+    border-radius: 4px; font-weight: 500; display: inline-flex; align-items: center; gap: 4px;
+  }
+
+  .sender-info-bar { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px; padding: 0 32px; }
+  .sender-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; overflow: hidden;
+  }
+  .sender-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+  .sender-details { flex: 1; }
+  .sender-name-row { display: flex; align-items: center; gap: 6px; font-weight: 700; color: #202124; font-size: 14px; }
+  .verified-badge { color: #1a73e8; display: inline-flex; align-items: center; }
+  .sender-email-text { color: #5f6368; font-weight: 400; font-size: 12px; }
+  .to-me { color: #5f6368; font-size: 12px; margin-top: 2px; }
+
+  .email-meta-right { display: flex; align-items: center; gap: 12px; color: #5f6368; font-size: 12px; }
+
+  /* FULL-WIDTH BLACK EMAIL CONTAINER (BLIZZARD STYLE) */
+  .full-email-wrapper {
+    background-color: #000000;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    min-height: 500px;
+    flex: 1;
+  }
+
+  /* INNER CARD (CENTERED) */
+  .email-body-card {
+    background: #0e1015;
+    width: 100%;
+    max-width: 580px;
+    color: #ffffff;
+    text-align: left;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  }
+
+  .top-notice-bar {
+    background: #151821;
+    color: #8f96a3;
+    font-size: 11px;
+    text-align: center;
+    padding: 8px;
+    border-bottom: 1px solid #1e222d;
+  }
+
+  .battlenet-logo-wrap {
+    text-align: center;
+    padding: 30px 20px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .header-logo-icon { width: 38px; height: 38px; object-fit: contain; }
+
+  .body-content { padding: 0 40px 40px; line-height: 1.6; color: #d0d4e4; font-size: 14px; }
+  .body-content p { margin-bottom: 16px; }
+
+  .warn-box {
+    background: #2b1f1d; border-left: 4px solid #d93025;
+    padding: 14px 16px; margin: 20px 0; font-size: 13.5px; color: #f8beba; border-radius: 0 4px 4px 0;
+  }
+  .verify-btn {
+    display: inline-block; background: #0074e4; color: white; text-decoration: none;
+    padding: 12px 28px; border-radius: 4px; font-weight: 600; margin: 16px 0 24px; text-align: center;
+  }
+  .verify-btn:hover { background: #005bb5; }
+
+  .signature { margin-top: 24px; color: #ffffff; }
+  .signature .team { color: #8e95ad; font-size: 12.5px; margin-top: 4px; }
+
+  .footer-note { color: #61687d; font-size: 11.5px; margin-top: 32px; border-top: 1px solid #1e222d; padding-top: 16px; text-align: center; }
+
+  /* REPLY / FORWARD BUTTONS */
+  .bottom-actions { display: flex; gap: 12px; padding: 24px 32px; background: #ffffff; }
+  .action-btn {
+    border: 1px solid #747775; background: transparent; padding: 8px 24px;
+    border-radius: 18px; color: #444746; font-weight: 500; font-size: 14px;
+    cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .action-btn:hover { background: #f8f9fa; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="menu-btn">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="#5f6368"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+  </div>
+  <div class="logo-container">
+    <svg width="36" height="30" viewBox="0 0 48 48">
+      <path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/>
+      <path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/>
+      <path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24s.85 6.91 2.34 9.88l7.35-5.7z"/>
+      <path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/>
+    </svg>
+    <span>Gmail</span>
+  </div>
+
+  <div class="search-bar">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="#5f6368"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+    <input type="text" placeholder="Search mail">
+  </div>
+
+  <div class="header-actions">
+    <div class="icon-btn">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 2-3 4"/><line x1="12" y1="17" x2="12" y2="17"/></svg>
+    </div>
+    <div class="icon-btn">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09c0 .68.39 1.29 1 1.51.62.24 1.34.11 1.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06c-.44.48-.57 1.2-.33 1.82.22.61.83 1 1.51 1H21a2 2 0 010 4h-.09c-.68 0-1.29.39-1.51 1z"/></svg>
+    </div>
+    <button class="upgrade-btn">Upgrade</button>
+    <div class="avatar">N</div>
+  </div>
+</header>
+
+<div class="container">
+  <nav>
+    <div class="compose-container">
+      <div class="compose-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#001d35" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        Compose
+      </div>
+    </div>
+
+    <!-- Inbox -->
+    <div class="nav-item active">
+      <div class="nav-item-left">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#202124" stroke-width="2"><path d="M22 12h-6l-2 3h-4l-2-3H2v7c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-7z"/><path d="M5.45 5.11L2 12v0h20v0l-3.45-6.89A2 2 0 0016.76 4H7.24a2 2 0 00-1.79 1.11z"/></svg>
+        Inbox
+      </div>
+      <span class="nav-count">7,660</span>
+    </div>
+
+    <!-- Starred -->
+    <div class="nav-item">
+      <div class="nav-item-left">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Starred
+      </div>
+    </div>
+
+    <!-- Snoozed -->
+    <div class="nav-item">
+      <div class="nav-item-left">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Snoozed
+      </div>
+    </div>
+
+    <!-- Sent -->
+    <div class="nav-item">
+      <div class="nav-item-left">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2"><path d="M22 12h-6l-2-3h-4l-2 3H2v7c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-7z"/><line x1="12" y1="11" x2="12" y2="3"/><polyline points="8 7 12 3 16 7"/></svg>
+        Sent
+      </div>
+    </div>
+
+    <!-- Drafts -->
+    <div class="nav-item">
+      <div class="nav-item-left">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Drafts
+      </div>
+      <span class="nav-count" style="font-weight:400; color:#5f6368;">4</span>
+    </div>
+
+    <!-- Purchases -->
+    <div class="nav-item">
+      <div class="nav-item-left">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1z"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
+        Purchases
+      </div>
+      <span class="nav-count" style="font-weight:400; color:#5f6368;">30</span>
+    </div>
+
+    <div class="nav-more">▾ More</div>
+    <div class="labels-header">Labels +</div>
+  </nav>
+
+  <main>
+    <!-- ACTION TOOLBAR -->
+    <div class="email-toolbar">
+      <div class="toolbar-group">
+        <div class="toolbar-icon" title="Back to Inbox" onclick="window.location.href='gmail_mockup.html'">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        </div>
+        <div class="toolbar-icon" title="Archive">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+        </div>
+        <div class="toolbar-icon" title="Report spam">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div class="toolbar-icon" title="Delete">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+        </div>
+        <div class="toolbar-icon" title="Mark as unread">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 8l9 6 9-6"/></svg>
+        </div>
+      </div>
+      <div class="toolbar-group">
+        <span style="font-size: 12px;">1 of 8,223</span>
+        <div class="toolbar-icon">‹</div>
+        <div class="toolbar-icon">›</div>
+      </div>
+    </div>
+
+    <!-- EMAIL VIEW -->
+    <div class="email-view">
+      <div class="subject-line">
+        <div class="subject-title">
+          <span>Battle.net Account Suspension Notice</span>
+          <span class="inbox-tag">Inbox ✕</span>
+        </div>
+        <div style="display:flex; gap:12px; color:#5f6368;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </div>
+      </div>
+
+      <div class="sender-info-bar">
+        <div class="sender-avatar">
+          <img src="https://cdn2.steamgriddb.com/icon/937ea3f7714dc0d01475da7bff33b596/32/256x256.png" alt="Battle.net Icon">
+        </div>
+
+        <div class="sender-details">
+          <div class="sender-name-row">
+            <span>Battle.net</span>
+            <span class="verified-badge" title="Verified sender">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#1a73e8"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            </span>
+            <span class="sender-email-text">&lt;noreply@battle-net-alerts.com&gt;</span>
+          </div>
+          <div class="to-me">to me ▾</div>
+        </div>
+        <div class="email-meta-right">
+          <span>10:29 PM (46 minutes ago)</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 19l-7-7 7-7"/><path d="M3 12h18"/></svg>
+        </div>
+      </div>
+
+      <!-- CONTAINER NEGRU COMPLET CARE OCUPĂ TOATĂ LĂȚIMEA -->
+      <div class="full-email-wrapper">
+        <div class="email-body-card">
+          <!-- BARA DE ALERTĂ DIN PARTEA DE SUS CA ÎN IMAGINEA DE REFERINȚĂ -->
+          <div class="top-notice-bar">
+            🔒 Hello! If <strong>bobertVoDa#2868</strong> isn't your account name, don't click anything in this email!
+          </div>
+
+          <!-- HEADER LOGO BATTLE.NET -->
+          <div class="battlenet-logo-wrap">
+            <img src="https://cdn2.steamgriddb.com/icon/937ea3f7714dc0d01475da7bff33b596/32/256x256.png" alt="Battle.net Logo" class="header-logo-icon">
+            <span style="font-family:'Arial Black', 'Impact', sans-serif; font-size:26px; font-weight:900; letter-spacing:2px; color:#ffffff;">BATTLE<span style="color:#ffffff;">.NET</span></span>
+          </div>
+
+          <div class="body-content">
+            <p>Dear bobertVoDa#2868,</p>
+
+            <p>Our automated security system has detected unusual activity associated with your Battle.net account, specifically related to <strong>unauthorized login attempts and trading violations</strong>.</p>
+
+            <div class="warn-box">
+              ⚠ If this issue is not resolved within <strong>24 hours</strong>, your account will be permanently suspended and you will lose access to your games, purchases, and Battle.net Balance.
+            </div>
+
+            <p>To secure your account and avoid permanent suspension, please verify your identity immediately by confirming your login credentials below.</p>
+
+            <div style="text-align: center;">
+              <a href="battlenet_mockup.html" class="verify-btn">Verify Account Access</a>
+            </div>
+
+            <p>If you did not initiate any suspicious activity, we strongly recommend verifying your account now to prevent unauthorized access.</p>
+
+            <div class="signature">
+              Thank you for helping us keep the Battle.net community safe.
+              <div class="team">The Battle.net Account Security Team</div>
+            </div>
+
+            <div class="footer-note">
+              This is an automated security notification. Please do not reply directly.<br>
+              © Blizzard Entertainment, Inc. All rights reserved.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACTION BUTTONS BELOW -->
+      <div class="bottom-actions">
+        <button class="action-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 19l-7-7 7-7"/><path d="M3 12h18"/></svg>
+          Reply
+        </button>
+        <button class="action-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 5l7 7-7 7"/><path d="M21 12H3"/></svg>
+          Forward
+        </button>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+</body>
+</html>
